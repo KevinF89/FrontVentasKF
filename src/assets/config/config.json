@@ -1,0 +1,6 @@
+{
+    "urlApiVentas": "https://localhost:44307/api/",
+    "Token": "0272C058-B43B-41E2-98FE-81FA6CD8BCDE",
+    "defaultImage":"",
+    "urlAppVentas":"https://localhost:4200/"
+}

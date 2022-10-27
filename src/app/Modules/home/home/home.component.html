@@ -1,0 +1,225 @@
+
+
+
+<div class="container-fluid">
+  <h1>Administración de productos</h1>
+  <br />
+  <div class="row">
+    <div class="col-md-4">
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#myModal"
+      >
+        Nuevo producto
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+      <table border="1" class="table table-striped" *ngIf="resta.length > 0">
+        <thead class="thead-dark">
+          <tr>
+            <th>Id Producto</th>
+            <th>Nombre</th>
+            <th>Valor Unitario</th>
+            <th>Cantidad disponible</th>
+            <th>Descripción</th>
+            <th>Borrar</th>
+            <th>Seleccionar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of resta">
+            <td>{{ t.productoID }}</td>
+            <td>{{ t.nombre }}</td>
+            <td>{{ t.valor }}</td>
+            <td>{{ t.cantidadDisponible }}</td>
+            <td>{{ t.descripcion }}</td>
+            <td>
+              <button class="btn btn-danger" (click)="borrar(t)">Borrar</button>
+            </td>
+            <td>
+              <button class="btn btn-success" (click)="seleccionar(t)">
+                Seleccionar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="col-md-10 login-card">
+      <div *ngIf="productoEditar">
+        <form
+          [formGroup]="formUpdateProducto"
+          class="form-control-static"
+          (ngSubmit)="ConsultarProductos()"
+        >
+          <!-- ActualizarUsuario(formupdate) -->
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Id Producto</label>
+                <input
+                  formControlName="txtid"
+                  class="form-control"
+                  type="text"
+                  minlength="4"
+                  maxlength="20"
+                  [(ngModel)]="productoEditar.productoID"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nombre</label>
+                <input
+                  formControlName="txtNombre"
+                  class="form-control"
+                  [(ngModel)]="productoEditar.nombre"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Valor</label>
+                <input
+                  formControlName="txtValor"
+                  class="form-control"
+                  [(ngModel)]="productoEditar.valor"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Cantidad</label>
+                <input
+                  formControlName="txtCantidad"
+                  class="form-control"
+                  [(ngModel)]="productoEditar.cantidadDisponible"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Descripcion</label>
+                <input
+                  formControlName="txtDescripcion"
+                  class="form-control"
+                  type="text"
+                  [(ngModel)]="productoEditar.descripcion"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <button type="submit" #btnModificar class="btn btn-success">
+                  Actualizar
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="limpiarEdicion()">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form
+          [formGroup]="formCreateProducto"
+          class="form-control-static"
+          (ngSubmit)="CrearProducto(formCreateProducto)"
+        >
+      <div class="modal-header">
+        <h5 class="modal-title">Nuevo producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+          <!-- CrearTarea(formCreate) -->
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nombre</label>
+                <input formControlName="txtNombre" class="form-control" />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Valor</label>
+                <input
+                  formControlName="txtValor"
+                  type="number"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="form-group">
+                  <label>Cantidad</label>
+                  <input
+                    formControlName="txtCantidad"
+                    type="number"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Descripcion</label>
+                <input
+                  formControlName="txtDescripcion"
+                  class="form-control"
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <!-- {{validacion}} -->
+                <label
+                  [for]="btnModificar"
+                  id="validar1"
+                  class="validacion"
+                ></label>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" type="submit" #btnModificar class="btn btn-primary">Crear producto</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
